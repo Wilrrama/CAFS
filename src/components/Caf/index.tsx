@@ -1,49 +1,72 @@
 import carrinho from "../../assets/car.png";
-import { MdDeleteForever, MdEditNote } from "react-icons/md";
-
-import { MdEditAttributes } from "react-icons/md";
+import { MdDeleteForever, MdEditNote, MdEditAttributes } from "react-icons/md";
 import "../Caf/style.css";
+import { seedData } from "../../data/seed";
+import { CafForm } from "./CafForm";
+import { useState } from "react";
 
 export const CAF = () => {
+  const [cafs, setCafs] = useState(seedData);
+  const [openModal, setOpenModal] = useState(false);
+
+  const handleDelete = (id: number) => {
+    if (window.confirm("Tem certeza que deseja excluir esta CAF?")) {
+      setCafs(cafs.filter((item) => item.id !== id));
+    }
+  };
+
+  const handleAddCaf = (newCaf: any) => {
+    setCafs([...cafs, newCaf]);
+  };
+
   return (
     <section>
       <div className="caf__add">
-        <button>Adicionar CAF</button>
+        <button onClick={() => setOpenModal(true)}>Adicionar CAF</button>
       </div>
-      <div className="caf__container">
-        <div className="caf__img">
-          <img src={carrinho} alt="carrinho" />
-        </div>
-        <div className="caf__description">
-          <div>
-            <p>CAF: 161820211</p>
-            <p>DATA: 17/02/2025</p>
-            <p>CARDS: 11</p>
-            <p>EXP: 102</p>
-            <p>LPT: 0</p>
-            <p>VOLUMES:0</p>
-          </div>
-
-          <div className="caf__insucess">
-            <p>Insucessos</p>
-            <p>Cards: 0</p>
-            <p>Exp: 0</p>
-            <p>Devoluções:0</p>
-          </div>
-          <p>Valor: 270,00</p>
-        </div>
-        <div className="caf__buttons">
-          <button>
-            <MdEditAttributes />
-          </button>
-          <button>
-            <MdEditNote />
-          </button>
-          <button>
-            <MdDeleteForever />
-          </button>
-        </div>
-      </div>
+      <CafForm
+        isOpen={openModal}
+        onClose={() => setOpenModal(false)}
+        onAddCaf={handleAddCaf}
+      />
+      {cafs.map((item) => (
+        <ul key={item.id}>
+          <li className="caf__container">
+            <div className="caf__img">
+              <img src={carrinho} alt="carrinho" />
+            </div>
+            <div className="caf__description">
+              <div>
+                <p>CAF: {item.caf}</p>
+                <p>DATA: {item.data}</p>
+                <p>CARDS: {item.cards}</p>
+                <p>EXP: {item.exp}</p>
+                <p>LPT: {item.lpt}</p>
+                <p>TOTAL: {item.total}</p>
+                <p>VOLUMES: {item.volumes}</p>
+                <p>DEVOLUÇÕES: {item.devolucoes}</p>
+              </div>
+              {/* <div className="caf__insucess">
+                <p>INSUCESSOS</p>
+                <p>Cards: {item.insucessos.cards}</p>
+                <p>Exp: {item.insucessos.exp}</p>
+              </div> */}
+              <p>Valor: {item.valor.toFixed(2)}</p>
+            </div>
+            <div className="caf__buttons">
+              <button>
+                <MdEditAttributes />
+              </button>
+              <button>
+                <MdEditNote />
+              </button>
+              <button onClick={() => handleDelete(item.id)}>
+                <MdDeleteForever />
+              </button>
+            </div>
+          </li>
+        </ul>
+      ))}
     </section>
   );
 };

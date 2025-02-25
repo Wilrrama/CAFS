@@ -1,6 +1,6 @@
 .nav__button {
   display: flex;
-  background-color: coral;
+  background-color: #ffa500;
   color: aliceblue;
   gap: 5px;
   justify-content: space-around;
