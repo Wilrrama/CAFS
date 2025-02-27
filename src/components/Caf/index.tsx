@@ -30,42 +30,40 @@ export const CAF = () => {
         onAddCaf={handleAddCaf}
       />
       {cafs.map((item) => (
-        <ul key={item.id}>
-          <li className="caf__container">
-            <div className="caf__img">
-              <img src={carrinho} alt="carrinho" />
+        <li key={item.id} className="caf__container">
+          <div className="caf__img">
+            <img src={carrinho} alt="carrinho" />
+          </div>
+          <div className="caf__description">
+            <div>
+              <p>CAF: {item.caf}</p>
+              <p>DATA: {new Date(item.data).toLocaleDateString("pt-BR")}</p>
+              <p>CARDS: {item.cards}</p>
+              <p>EXP: {item.exp}</p>
+              <p>LPT: {item.lpt}</p>
+              <p>TOTAL: {item.total}</p>
+              <p>VOLUMES: {item.volumes}</p>
+              <p>DEVOLUÇÕES: {item.devolucoes}</p>
             </div>
-            <div className="caf__description">
-              <div>
-                <p>CAF: {item.caf}</p>
-                <p>DATA: {item.data}</p>
-                <p>CARDS: {item.cards}</p>
-                <p>EXP: {item.exp}</p>
-                <p>LPT: {item.lpt}</p>
-                <p>TOTAL: {item.total}</p>
-                <p>VOLUMES: {item.volumes}</p>
-                <p>DEVOLUÇÕES: {item.devolucoes}</p>
-              </div>
-              {/* <div className="caf__insucess">
+            {/* <div className="caf__insucess">
                 <p>INSUCESSOS</p>
                 <p>Cards: {item.insucessos.cards}</p>
                 <p>Exp: {item.insucessos.exp}</p>
               </div> */}
-              <p>Valor: {item.valor.toFixed(2)}</p>
-            </div>
-            <div className="caf__buttons">
-              <button>
-                <MdEditAttributes />
-              </button>
-              <button>
-                <MdEditNote />
-              </button>
-              <button onClick={() => handleDelete(item.id)}>
-                <MdDeleteForever />
-              </button>
-            </div>
-          </li>
-        </ul>
+            <p>VALOR: {item.valor.toFixed(2)}</p>
+          </div>
+          <div className="caf__buttons">
+            <button>
+              <MdEditAttributes />
+            </button>
+            <button>
+              <MdEditNote />
+            </button>
+            <button onClick={() => handleDelete(item.id)}>
+              <MdDeleteForever />
+            </button>
+          </div>
+        </li>
       ))}
     </section>
   );

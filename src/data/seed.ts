@@ -31,20 +31,4 @@ export const seedData = [
     },
     valor: 9 * 1.5 + 98 * 3.5 + 1 * 0.8,
   },
-  {
-    id: 3,
-    caf: "161820213",
-    data: "2025-02-19",
-    cards: 15,
-    exp: 120,
-    lpt: 0,
-    devolucoes: 0,
-    volumes: 1,
-    total: 135,
-    insucessos: {
-      cards: 2,
-      exp: 3,
-    },
-    valor: 15 * 1.5 + 120 * 3.5 + 0 * 0.8,
-  },
 ];
