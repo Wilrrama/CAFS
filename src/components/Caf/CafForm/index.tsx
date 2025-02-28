@@ -31,8 +31,8 @@ const cafsFormSchema = z.object({
   cards: z.string().min(1, "Informe a quantidade de Cards"),
   exp: z.string().min(1, "Informe a quantidade de EXP"),
   lpt: z.string().min(1, "Informe a quantidade de LPT"),
-  volumes: z.string().min(1, "Informe a quantidade de Volumes"),
-  dev: z.string().min(1, "Informe a quantidade de Devoluções"),
+  volumes: z.string(),
+  dev: z.string(),
 });
 
 export const CafForm: React.FC<CafFormProps> = ({
@@ -97,7 +97,7 @@ export const CafForm: React.FC<CafFormProps> = ({
             <p className="error-message">{errors.data.message}</p>
           )}
 
-          <input type="number" {...register("cards")} placeholder="Cards" />
+          <input type="number" {...register("cards")} placeholder="CARDS" />
           {errors.cards && (
             <p className="error-message">{errors.cards.message}</p>
           )}

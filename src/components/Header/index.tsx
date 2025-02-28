@@ -1,7 +1,11 @@
 import { GiHamburgerMenu } from "react-icons/gi";
 import "../Header/style.css";
 
-export const Header = () => {
+interface HeaderProps {
+  qtdCafs: number;
+}
+
+export const Header = ({ qtdCafs }: HeaderProps) => {
   return (
     <>
       <header>
@@ -9,7 +13,7 @@ export const Header = () => {
           <GiHamburgerMenu />
         </button>
         <h2>CAFS</h2>
-        <h3>QTD</h3>
+        <h3>QTD: {qtdCafs}</h3>
       </header>
     </>
   );

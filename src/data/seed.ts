@@ -1,6 +1,6 @@
 export const seedData = [
   {
-    id: 1,
+    id: "1",
     caf: "161820211",
     data: "2025-02-17",
     cards: 11,
@@ -9,14 +9,11 @@ export const seedData = [
     devolucoes: 0,
     volumes: 0,
     total: 113,
-    insucessos: {
-      cards: 0,
-      exp: 0,
-    },
+
     valor: 11 * 1.5 + 102 * 3.5 + 0 * 0.8,
   },
   {
-    id: 2,
+    id: "2",
     caf: "161820212",
     data: "2025-02-18",
     cards: 9,
@@ -25,10 +22,7 @@ export const seedData = [
     devolucoes: 1,
     volumes: 2,
     total: 108,
-    insucessos: {
-      cards: 1,
-      exp: 2,
-    },
+
     valor: 9 * 1.5 + 98 * 3.5 + 1 * 0.8,
   },
 ];

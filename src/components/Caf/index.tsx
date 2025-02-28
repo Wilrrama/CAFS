@@ -1,22 +1,40 @@
 import carrinho from "../../assets/car.png";
 import { MdDeleteForever, MdEditNote, MdEditAttributes } from "react-icons/md";
 import "../Caf/style.css";
-import { seedData } from "../../data/seed";
 import { CafForm } from "./CafForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export const CAF = () => {
-  const [cafs, setCafs] = useState(seedData);
+interface CafProps {
+  cafs: any[];
+  setCafs: React.Dispatch<React.SetStateAction<any[]>>;
+}
+
+export const CAF = ({ cafs, setCafs }: CafProps) => {
   const [openModal, setOpenModal] = useState(false);
 
-  const handleDelete = (id: number) => {
+  // Carrega as CAFs do localStorage ao montar o componente
+  useEffect(() => {
+    const savedCafs = localStorage.getItem("cafs");
+    if (savedCafs) {
+      setCafs(JSON.parse(savedCafs));
+    }
+  }, []);
+
+  // Salva as CAFs no localStorage sempre que o array mudar
+  useEffect(() => {
+    localStorage.setItem("cafs", JSON.stringify(cafs));
+  }, [cafs]);
+
+  const handleDelete = (id: string) => {
     if (window.confirm("Tem certeza que deseja excluir esta CAF?")) {
-      setCafs(cafs.filter((item) => item.id !== id));
+      const updatedCafs = cafs.filter((item) => item.id !== id);
+      setCafs(updatedCafs);
     }
   };
 
   const handleAddCaf = (newCaf: any) => {
-    setCafs([...cafs, newCaf]);
+    const updatedCafs = [...cafs, newCaf];
+    setCafs(updatedCafs);
   };
 
   return (
@@ -29,42 +47,45 @@ export const CAF = () => {
         onClose={() => setOpenModal(false)}
         onAddCaf={handleAddCaf}
       />
-      {cafs.map((item) => (
-        <li key={item.id} className="caf__container">
-          <div className="caf__img">
-            <img src={carrinho} alt="carrinho" />
-          </div>
-          <div className="caf__description">
-            <div>
-              <p>CAF: {item.caf}</p>
-              <p>DATA: {new Date(item.data).toLocaleDateString("pt-BR")}</p>
-              <p>CARDS: {item.cards}</p>
-              <p>EXP: {item.exp}</p>
-              <p>LPT: {item.lpt}</p>
-              <p>TOTAL: {item.total}</p>
-              <p>VOLUMES: {item.volumes}</p>
-              <p>DEVOLUÇÕES: {item.devolucoes}</p>
-            </div>
-            {/* <div className="caf__insucess">
-                <p>INSUCESSOS</p>
-                <p>Cards: {item.insucessos.cards}</p>
-                <p>Exp: {item.insucessos.exp}</p>
-              </div> */}
-            <p>VALOR: {item.valor.toFixed(2)}</p>
-          </div>
-          <div className="caf__buttons">
-            <button>
-              <MdEditAttributes />
-            </button>
-            <button>
-              <MdEditNote />
-            </button>
-            <button onClick={() => handleDelete(item.id)}>
-              <MdDeleteForever />
-            </button>
-          </div>
-        </li>
-      ))}
+      {cafs.length === 0 ? (
+        <p style={{ textAlign: "center", fontSize: "18px", marginTop: "20px" }}>
+          Nenhuma CAF cadastrada.
+        </p>
+      ) : (
+        <ul>
+          {cafs.map((item) => (
+            <li key={item.id} className="caf__container">
+              <div className="caf__img">
+                <img src={carrinho} alt="carrinho" />
+              </div>
+              <div className="caf__description">
+                <div>
+                  <p>CAF: {item.caf}</p>
+                  <p>DATA: {new Date(item.data).toLocaleDateString("pt-BR")}</p>
+                  <p>CARDS: {item.cards}</p>
+                  <p>EXP: {item.exp}</p>
+                  <p>LPT: {item.lpt}</p>
+                  <p>TOTAL: {item.total}</p>
+                  <p>VOLUMES: {item.volumes}</p>
+                  <p>DEVOLUÇÕES: {item.devolucoes}</p>
+                </div>
+                <p>VALOR: {item.valor.toFixed(2)}</p>
+              </div>
+              <div className="caf__buttons">
+                <button>
+                  <MdEditAttributes />
+                </button>
+                <button>
+                  <MdEditNote />
+                </button>
+                <button onClick={() => handleDelete(item.id)}>
+                  <MdDeleteForever />
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
     </section>
   );
 };
